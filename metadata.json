@@ -1,0 +1,7 @@
+{
+  "name": "Saúde com Sabor - Sua Jornada Culinária Saudável",
+  "description": "Uma plataforma avançada de receitas e saúde inspirada no bem-estar, com planejador de refeições, calculadoras interativas e guias nutricionais detalhados.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
