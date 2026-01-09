@@ -78,6 +78,12 @@ const App: React.FC = () => {
     return combined.sort(() => 0.5 - Math.random()).slice(0, 7);
   }, [allRecipes, allArticles]);
 
+  const recentPosts = useMemo(() => {
+    // Simulando posts recentes pegando os primeiros de cada lista
+    const mixed = [...allRecipes.slice(0, 3), ...allArticles.slice(0, 3)];
+    return mixed.sort(() => 0.5 - Math.random());
+  }, [allRecipes, allArticles]);
+
   const filteredRecipes = useMemo(() => {
     return allRecipes.filter(recipe => 
       recipe.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -157,7 +163,8 @@ const App: React.FC = () => {
       case 'home':
       default:
         return (
-          <div className="space-y-16 py-12">
+          <div className="space-y-20 py-12">
+            {/* Hero Section */}
             <section className="max-w-7xl mx-auto px-4">
                <div className="relative rounded-[3rem] overflow-hidden bg-stone-900 text-white min-h-[500px] flex items-center px-12 shadow-2xl py-12">
                   <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80&w=1200" className="absolute inset-0 w-full h-full object-cover opacity-30" alt="Alimentos saudáveis sobre a mesa" />
@@ -171,9 +178,63 @@ const App: React.FC = () => {
                   </div>
                </div>
             </section>
-            <section>
+
+            {/* Recent Posts Section (NO MEIO DO SITE) */}
+            <section className="max-w-7xl mx-auto px-4">
+              <div className="flex flex-col md:flex-row items-end justify-between mb-10 gap-4">
+                <div>
+                  <span className="text-red-600 font-black text-[10px] uppercase tracking-[0.3em] mb-2 block">Novidades</span>
+                  <h3 className="text-4xl font-black text-stone-800 tracking-tight">Postagens Recentes</h3>
+                </div>
+                <button 
+                  onClick={() => setCurrentView('receitas')}
+                  className="text-stone-400 font-bold hover:text-red-600 transition-all flex items-center gap-2 group"
+                >
+                  Ver todo o arquivo <i className="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {recentPosts.map((post, idx) => {
+                  const isRecipe = 'ingredients' in post;
+                  if (isRecipe) {
+                    return <RecipeCard key={post.id} recipe={post as Recipe} onClick={() => handleRecipeClick(post as Recipe)} />;
+                  }
+                  return (
+                    <div 
+                      key={post.id} 
+                      onClick={() => handleArticleClick(post as Article)}
+                      className="group bg-white rounded-3xl overflow-hidden border border-stone-100 shadow-sm hover:shadow-xl transition-all cursor-pointer flex flex-col"
+                    >
+                      <div className="h-48 overflow-hidden relative">
+                        <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                        <div className="absolute top-4 left-4">
+                          <span className="bg-emerald-600 text-white px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest">
+                            Artigo
+                          </span>
+                        </div>
+                      </div>
+                      <div className="p-6 flex-grow flex flex-col">
+                        <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest mb-2">{(post as Article).category}</span>
+                        <h4 className="text-lg font-bold text-stone-800 mb-3 leading-tight group-hover:text-emerald-600 transition-colors line-clamp-2">
+                          {post.title}
+                        </h4>
+                        <p className="text-sm text-stone-500 line-clamp-2 mb-6 flex-grow">{(post as Article).excerpt}</p>
+                        <div className="pt-4 border-t border-stone-50 flex items-center justify-between">
+                          <span className="text-[10px] text-stone-400 font-bold">{(post as Article).readTime} de leitura</span>
+                          <i className="fa-solid fa-arrow-right text-emerald-600 opacity-0 group-hover:opacity-100 transition-all translate-x-[-10px] group-hover:translate-x-0"></i>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+
+            {/* Featured Carousel Section */}
+            <section className="pb-12">
               <div className="max-w-7xl mx-auto px-4 mb-8">
-                <h3 className="text-2xl font-black text-stone-800 tracking-tight">Conteúdo em Destaque</h3>
+                <h3 className="text-2xl font-black text-stone-800 tracking-tight">Destaques da Comunidade</h3>
               </div>
               <PostCarousel items={latestPosts} onItemClick={(item) => 'ingredients' in item ? handleRecipeClick(item) : handleArticleClick(item)} />
             </section>
