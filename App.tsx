@@ -16,6 +16,7 @@ import ContentEditor from './components/ContentEditor';
 import TermsOfUse from './components/TermsOfUse';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import AdBanner from './components/AdBanner';
+import { supabase } from './lib/supabase';
 
 type View = 'home' | 'recipe' | 'planner' | 'imc' | 'receitas' | 'sobre' | 'conversor' | 'saude' | 'article' | 'editor' | 'termos' | 'privacidade';
 
@@ -24,27 +25,37 @@ const App: React.FC = () => {
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   
   const [allRecipes, setAllRecipes] = useState<Recipe[]>([]);
   const [allArticles, setAllArticles] = useState<Article[]>([]);
 
-  useEffect(() => {
-    const isInitialized = localStorage.getItem('ss_initialized');
-    if (!isInitialized) {
-      localStorage.setItem('ss_custom_recipes', JSON.stringify(MOCK_RECIPES));
-      localStorage.setItem('ss_custom_articles', JSON.stringify(MOCK_ARTICLES));
-      localStorage.setItem('ss_initialized', 'true');
+  const loadData = async () => {
+    setIsLoading(true);
+    try {
+      const [recipesRes, articlesRes] = await Promise.all([
+        supabase.from('recipes').select('*').order('created_at', { ascending: false }),
+        supabase.from('articles').select('*').order('created_at', { ascending: false })
+      ]);
+
+      // Se o banco estiver vazio, usa os mocks como fallback inicial
+      const recipesData = (recipesRes.data && recipesRes.data.length > 0) ? recipesRes.data : MOCK_RECIPES;
+      const articlesData = (articlesRes.data && articlesRes.data.length > 0) ? articlesRes.data : MOCK_ARTICLES;
+
+      setAllRecipes(recipesData as Recipe[]);
+      setAllArticles(articlesData as Article[]);
+    } catch (error) {
+      console.error("Erro ao carregar dados do Supabase:", error);
+      setAllRecipes(MOCK_RECIPES);
+      setAllArticles(MOCK_ARTICLES);
+    } finally {
+      setIsLoading(false);
     }
-    const loadData = () => {
-      const localRecipes = JSON.parse(localStorage.getItem('ss_custom_recipes') || '[]');
-      const localArticles = JSON.parse(localStorage.getItem('ss_custom_articles') || '[]');
-      setAllRecipes(localRecipes);
-      setAllArticles(localArticles);
-    };
+  };
+
+  useEffect(() => {
     loadData();
-    window.addEventListener('storage', loadData);
-    return () => window.removeEventListener('storage', loadData);
-  }, [currentView]);
+  }, [currentView]); // Recarrega ao mudar de página para garantir dados frescos
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -76,11 +87,11 @@ const App: React.FC = () => {
 
   const recentPosts = useMemo(() => {
     const combined = [
-      ...allRecipes.map(r => ({ ...r, type: 'recipe' })),
+      ...allRecipes.map(r => ({ ...r, x_type: 'recipe' })),
       ...allArticles.map(a => ({ ...a, x_type: 'article' }))
     ];
     // @ts-ignore
-    return combined.slice(-6).reverse();
+    return combined.slice(0, 6);
   }, [allRecipes, allArticles]);
 
   const handleRecipeClick = (recipe: Recipe) => {
@@ -107,6 +118,15 @@ const App: React.FC = () => {
   );
 
   const renderContent = () => {
+    if (isLoading && currentView === 'home') {
+      return (
+        <div className="flex flex-col items-center justify-center py-40 animate-pulse">
+          <div className="w-16 h-16 border-4 border-red-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+          <p className="text-stone-400 font-bold uppercase tracking-widest text-xs">Carregando Sabores...</p>
+        </div>
+      );
+    }
+
     switch (currentView) {
       case 'recipe': return selectedRecipe ? <RecipeDetail recipe={selectedRecipe} onBack={() => setCurrentView('receitas')} /> : null;
       case 'article': return selectedArticle ? <ArticleDetail article={selectedArticle} onBack={() => setCurrentView('saude')} /> : null;
