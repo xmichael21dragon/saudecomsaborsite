@@ -16,7 +16,7 @@ import ContentEditor from './components/ContentEditor';
 import TermsOfUse from './components/TermsOfUse';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import AdBanner from './components/AdBanner';
-import SearchInput from './components/SearchInput'; // Novo Import
+import SearchInput from './components/SearchInput'; 
 import { supabase } from './lib/supabase';
 
 type View = 'home' | 'recipe' | 'planner' | 'imc' | 'receitas' | 'sobre' | 'conversor' | 'saude' | 'article' | 'editor' | 'termos' | 'privacidade';
@@ -78,6 +78,12 @@ const App: React.FC = () => {
     }, {} as Record<string, Recipe[]>);
   }, [filteredRecipes]);
 
+  const topRatedRecipes = useMemo(() => {
+    return [...allRecipes]
+      .sort((a, b) => (b.rating || 0) - (a.rating || 0))
+      .slice(0, 3);
+  }, [allRecipes]);
+
   const filteredArticles = useMemo(() => {
     return allArticles.filter(a => 
       a.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -135,7 +141,7 @@ const App: React.FC = () => {
                 alt="Fundo de Receitas Saudáveis" 
               />
               <div className="absolute inset-0 bg-gradient-to-b from-stone-900/70 via-stone-900/40 to-[#fafaf9]"></div>
-              <div className="relative z-10 text-center px-4 max-w-5xl mx-auto mt-10">
+              <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-10">
                 <div className="inline-flex items-center gap-3 px-6 py-2 bg-white/10 backdrop-blur-md rounded-full mb-6 border border-white/20">
                    <div className="w-2 h-2 bg-[#df2a2a] rounded-full animate-ping"></div>
                    <span className="text-[10px] font-black text-white uppercase tracking-[0.4em]">Gastronomia Funcional</span>
@@ -149,8 +155,55 @@ const App: React.FC = () => {
                 <SearchInput value={searchQuery} onChange={setSearchQuery} placeholder="O que deseja preparar?" transparent />
               </div>
             </section>
+            
             <div className="max-w-7xl mx-auto px-4 pb-32 -mt-10 relative z-20">
+              
+              {/* Receitas Mais Populares Section */}
+              {!searchQuery && topRatedRecipes.length > 0 && (
+                <section className="mb-24 animate-fade-in">
+                  <div className="flex flex-col items-center mb-12">
+                    <div className="flex items-center gap-4 mb-3">
+                      <div className="h-[2px] w-12 bg-yellow-500"></div>
+                      <h3 className="text-xs font-black text-stone-400 uppercase tracking-[0.6em]">Receitas Mais Populares</h3>
+                      <div className="h-[2px] w-12 bg-yellow-500"></div>
+                    </div>
+                    <p className="text-stone-300 text-[10px] font-black uppercase tracking-[0.2em]">As favoritas da comunidade</p>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {topRatedRecipes.map((recipe, index) => (
+                      <div 
+                        key={recipe.id} 
+                        onClick={() => handleRecipeClick(recipe)}
+                        className="group bg-white rounded-[3rem] p-4 border border-stone-100 shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer flex items-center gap-6"
+                      >
+                        <div className="relative w-32 h-32 flex-shrink-0 overflow-hidden rounded-[2rem] shadow-lg">
+                          <img src={recipe.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={recipe.title} />
+                          <div className="absolute inset-0 bg-black/10"></div>
+                          <div className="absolute top-2 left-2 w-8 h-8 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-[10px] font-black text-stone-900 shadow-sm">
+                            #{index + 1}
+                          </div>
+                        </div>
+                        <div className="min-w-0 pr-4">
+                          <div className="flex items-center gap-2 mb-2">
+                             <div className="flex text-yellow-500 text-[10px]">
+                               {Array.from({ length: 5 }).map((_, i) => (
+                                 <i key={i} className={`fa-solid fa-star ${i >= Math.floor(recipe.rating || 0) ? 'opacity-20' : ''}`}></i>
+                               ))}
+                             </div>
+                             <span className="text-[10px] font-black text-stone-400">({recipe.rating})</span>
+                          </div>
+                          <h4 className="text-xl font-bold text-stone-800 leading-tight group-hover:text-[#df2a2a] transition-colors truncate">{recipe.title}</h4>
+                          <span className="text-[9px] font-black text-[#2e7d32] uppercase tracking-widest mt-2 block">{recipe.diet}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+
               <AdBanner className="mb-20" />
+
               {subcategoryEntries.length > 0 ? subcategoryEntries.map(([subcategory, catRecipes], idx) => (
                 <React.Fragment key={subcategory}>
                   <div className="mb-24">
