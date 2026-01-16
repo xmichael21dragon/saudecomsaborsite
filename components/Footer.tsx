@@ -1,5 +1,6 @@
 
 import React from 'react';
+import Logo from './Logo';
 
 interface FooterProps {
   onEditorClick?: () => void;
@@ -8,6 +9,13 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ onEditorClick, onTermsClick, onViewChange }) => {
+  // URLs reais atualizadas
+  const socialLinks = {
+    instagram: "https://www.instagram.com/saudecomsaborr1/",
+    facebook: "https://www.facebook.com/saudecomsabor",
+    pinterest: "https://br.pinterest.com/saudecomsabor"
+  };
+
   return (
     <footer className="bg-white border-t border-stone-100 pt-16 pb-8 print:hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -15,83 +23,99 @@ const Footer: React.FC<FooterProps> = ({ onEditorClick, onTermsClick, onViewChan
           {/* Brand */}
           <div className="col-span-1">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-[#2e7d32] to-[#df2a2a] rounded-xl flex items-center justify-center text-white shadow-md">
-                <i className="fa-solid fa-leaf text-xl"></i>
+              <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-xl border border-stone-50 overflow-hidden p-2 group">
+                <div className="w-full h-full transition-transform duration-500 group-hover:scale-110">
+                  <Logo />
+                </div>
               </div>
               <div className="flex flex-col">
-                <h2 className="text-lg font-black tracking-tighter leading-none text-stone-800 uppercase">
-                  Saúde <span className="text-[#df2a2a]">Com</span>
+                <h2 className="text-xl font-black tracking-tighter leading-none text-stone-800 uppercase">
+                  Saúde <span className="text-[#3b82f6]">com</span> <span className="text-[#ef4444]">Sabor</span>
                 </h2>
-                <span className="text-md font-black tracking-[0.2em] leading-none text-[#2e7d32]">SABOR</span>
+                <span className="text-[10px] font-black tracking-[0.2em] leading-none text-stone-400 mt-1 uppercase">Advanced Nutrition</span>
               </div>
             </div>
-            <p className="text-stone-500 text-sm leading-relaxed mb-6">
-              Sua plataforma completa para uma vida mais saudável e saborosa através da culinária consciente e informação de qualidade.
+            <p className="text-stone-500 text-sm leading-relaxed mb-8 max-w-sm">
+              Sua fonte definitiva de gastronomia funcional e bem-estar. Unimos o prazer de comer com a ciência da longevidade.
             </p>
             <div className="flex gap-4">
               <a 
-                href="https://www.instagram.com/saudecomsaborr1/" 
+                href={socialLinks.instagram} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-stone-50 flex items-center justify-center text-stone-400 hover:bg-[#df2a2a] hover:text-white transition-all shadow-sm"
+                title="Siga-nos no Instagram"
+                className="w-12 h-12 rounded-2xl bg-stone-50 flex items-center justify-center text-stone-400 hover:bg-gradient-to-tr hover:from-orange-500 hover:to-purple-600 hover:text-white transition-all shadow-sm hover:shadow-lg hover:-translate-y-1"
               >
-                <i className="fa-brands fa-instagram text-lg"></i>
+                <i className="fa-brands fa-instagram text-xl"></i>
               </a>
               <a 
-                href="https://www.facebook.com/403726932816864?ref=_xav_ig_profile_page_web" 
+                href={socialLinks.facebook} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-stone-50 flex items-center justify-center text-stone-400 hover:bg-[#2e7d32] hover:text-white transition-all shadow-sm"
+                title="Curta nossa página no Facebook"
+                className="w-12 h-12 rounded-2xl bg-stone-50 flex items-center justify-center text-stone-400 hover:bg-[#3b82f6] hover:text-white transition-all shadow-sm hover:shadow-lg hover:-translate-y-1"
               >
-                <i className="fa-brands fa-facebook-f text-lg"></i>
+                <i className="fa-brands fa-facebook-f text-xl"></i>
               </a>
               <a 
-                href="https://pin.it/46YdLvZow" 
+                href={socialLinks.pinterest} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-stone-50 flex items-center justify-center text-stone-400 hover:bg-[#df2a2a] hover:text-white transition-all shadow-sm"
+                title="Veja nossas pastas no Pinterest"
+                className="w-12 h-12 rounded-2xl bg-stone-50 flex items-center justify-center text-stone-400 hover:bg-[#ef4444] hover:text-white transition-all shadow-sm hover:shadow-lg hover:-translate-y-1"
               >
-                <i className="fa-brands fa-pinterest-p text-lg"></i>
+                <i className="fa-brands fa-pinterest-p text-xl"></i>
               </a>
             </div>
           </div>
 
-          <div>
-            <h4 className="font-bold text-stone-800 mb-6 uppercase tracking-wider text-xs">Conteúdo</h4>
-            <ul className="space-y-3 text-sm text-stone-500 font-medium">
-              <li><button onClick={() => onViewChange?.('receitas')} className="hover:text-[#df2a2a] transition-colors">Receitas Saudáveis</button></li>
-              <li><button onClick={() => onViewChange?.('saude')} className="hover:text-[#2e7d32] transition-colors">Artigos de Saúde</button></li>
-              <li><button onClick={() => onViewChange?.('sobre')} className="hover:text-stone-800 transition-colors">Sobre Nós</button></li>
-            </ul>
+          <div className="flex flex-col md:items-center">
+            <div className="w-full md:max-w-xs">
+              <h4 className="font-black text-stone-800 mb-6 uppercase tracking-[0.2em] text-[10px]">Mapa do Site</h4>
+              <ul className="space-y-4 text-sm text-stone-500 font-bold">
+                <li><button onClick={() => onViewChange?.('receitas')} className="hover:text-[#ef4444] transition-colors flex items-center gap-2"><i className="fa-solid fa-angle-right text-[8px]"></i> Receitas Exclusivas</button></li>
+                <li><button onClick={() => onViewChange?.('saude')} className="hover:text-[#3b82f6] transition-colors flex items-center gap-2"><i className="fa-solid fa-angle-right text-[8px]"></i> Saúde & Longevidade</button></li>
+                <li><button onClick={() => onViewChange?.('planner')} className="hover:text-stone-800 transition-colors flex items-center gap-2"><i className="fa-solid fa-angle-right text-[8px]"></i> Plano Nutricional</button></li>
+                <li><button onClick={() => onViewChange?.('sobre')} className="hover:text-stone-800 transition-colors flex items-center gap-2"><i className="fa-solid fa-angle-right text-[8px]"></i> Nosso Manifesto</button></li>
+              </ul>
+            </div>
           </div>
 
-          <div>
-            <h4 className="font-bold text-stone-800 mb-6 uppercase tracking-wider text-xs">Ferramentas</h4>
-            <ul className="space-y-3 text-sm text-stone-500 font-medium">
-              <li><button onClick={() => onViewChange?.('conversor')} className="hover:text-blue-600 transition-colors">Conversor de Medidas</button></li>
-              <li><button onClick={() => onViewChange?.('imc')} className="hover:text-green-700 transition-colors">Calculadora IMC</button></li>
-              <li><button onClick={() => onViewChange?.('planner')} className="hover:text-orange-600 transition-colors">Plano Semanal</button></li>
-            </ul>
+          <div className="flex flex-col md:items-end">
+            <div className="w-full md:max-w-xs md:text-right">
+              <h4 className="font-black text-stone-800 mb-6 uppercase tracking-[0.2em] text-[10px]">Suporte ao Leitor</h4>
+              <ul className="space-y-4 text-sm text-stone-500 font-bold">
+                <li><button onClick={() => onViewChange?.('contato')} className="hover:text-emerald-600 transition-colors flex items-center md:justify-end gap-2">Central de Atendimento <i className="fa-solid fa-headset text-[10px]"></i></button></li>
+                <li><button onClick={() => onViewChange?.('conversor')} className="hover:text-stone-800 transition-colors">Conversor de Medidas</button></li>
+                <li><button onClick={() => onViewChange?.('imc')} className="hover:text-stone-800 transition-colors">Cálculo de IMC</button></li>
+                <li><button onClick={() => onViewChange?.('planner')} className="hover:text-stone-800 transition-colors">Planner Semanal</button></li>
+              </ul>
+            </div>
           </div>
         </div>
 
         <div className="pt-8 border-t border-stone-100">
-          <div className="bg-[#f1f8e9] p-6 rounded-3xl mb-8 border border-[#c8e6c9]">
-            <p className="text-[10px] text-[#2e7d32] text-center uppercase font-bold tracking-[0.2em] mb-2">Aviso de Saúde</p>
-            <p className="text-xs text-stone-600 text-center leading-relaxed font-medium">
-              As informações contidas neste site são para fins educativos e não substituem o aconselhamento médico profissional. 
-              Siga nosso trabalho no <a href="https://www.facebook.com/403726932816864" target="_blank" className="text-blue-700 font-bold">Facebook</a>, <a href="https://www.instagram.com/saudecomsaborr1/" target="_blank" className="text-[#df2a2a] font-bold">Instagram</a> e <a href="https://pin.it/46YdLvZow" target="_blank" className="text-red-800 font-bold">Pinterest</a>.
-            </p>
+          <div className="bg-stone-50 p-8 rounded-[2.5rem] mb-12 border border-stone-100 flex flex-col md:flex-row items-center gap-8 shadow-inner">
+            <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-red-600 text-2xl shadow-sm flex-shrink-0">
+              <i className="fa-solid fa-shield-heart"></i>
+            </div>
+            <div className="text-center md:text-left">
+              <p className="text-[10px] text-stone-400 uppercase font-black tracking-[0.3em] mb-2">Aviso de Saúde Obrigatório</p>
+              <p className="text-xs text-stone-600 leading-relaxed font-medium italic">
+                O conteúdo do Saúde com Sabor é estritamente informativo. Nenhuma informação aqui contida substitui a consulta com médicos e nutricionistas. 
+                Sempre consulte um profissional antes de iniciar dietas ou suplementações.
+              </p>
+            </div>
           </div>
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-stone-400 font-semibold">
-            <p>© 2024 SAÚDE COM SABOR. Todos os direitos reservados.</p>
-            <div className="flex items-center gap-6">
-              <button onClick={onTermsClick} className="hover:text-stone-600 transition-colors">Termos de Uso</button>
-              <button onClick={() => onViewChange?.('privacidade')} className="hover:text-stone-600 transition-colors">Privacidade</button>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-stone-400 font-bold">
+            <p className="tracking-tight">© 2024 SAÚDE COM SABOR - PROJETO GASTRONOMIA CONSCIENTE.</p>
+            <div className="flex items-center gap-8">
+              <button onClick={onTermsClick} className="hover:text-stone-800 transition-colors uppercase tracking-widest text-[10px]">Termos</button>
+              <button onClick={() => onViewChange?.('privacidade')} className="hover:text-stone-800 transition-colors uppercase tracking-widest text-[10px]">Privacidade</button>
               <button 
                 onClick={onEditorClick}
-                title="Área do Autor"
-                className="text-stone-300 hover:text-stone-500 transition-colors ml-2"
+                title="Configurações do Autor"
+                className="w-8 h-8 rounded-full bg-stone-50 flex items-center justify-center text-stone-200 hover:text-stone-600 transition-all border border-stone-100"
               >
                 <i className="fa-solid fa-gear text-sm"></i>
               </button>

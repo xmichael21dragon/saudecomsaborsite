@@ -9,94 +9,76 @@ interface PrivacyPolicyProps {
 const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onBack }) => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-16 animate-fade-in">
-      <button 
-        onClick={onBack} 
-        className="mb-8 flex items-center gap-2 text-stone-400 hover:text-stone-800 transition-all font-black text-xs uppercase tracking-widest"
-      >
+      <button onClick={onBack} className="mb-8 flex items-center gap-2 text-stone-400 hover:text-stone-800 transition-all font-black text-xs uppercase tracking-widest">
         <i className="fa-solid fa-arrow-left"></i> Voltar ao Início
       </button>
 
-      <div className="bg-white rounded-[3rem] p-8 md:p-20 shadow-2xl border border-stone-100 mb-12">
+      <div className="bg-white rounded-[3rem] p-10 md:p-20 shadow-2xl border border-stone-100 mb-12 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#3b82f6] to-[#ef4444]"></div>
+        
         <header className="mb-16 text-center">
-          <span className="text-[#2e7d32] font-black text-[10px] uppercase tracking-[0.4em] mb-4 block">Segurança & Privacidade</span>
-          <h1 className="text-5xl md:text-6xl font-black text-stone-800 tracking-tighter leading-none mb-6">Política de Privacidade</h1>
-          <p className="text-stone-400 font-medium italic">Como cuidamos dos seus dados e garantimos sua navegação segura no Saúde com Sabor.</p>
+          <span className="text-[10px] font-black text-stone-400 uppercase tracking-[0.5em] mb-4 block">Segurança e Transparência</span>
+          <h1 className="text-5xl md:text-6xl font-black text-stone-800 tracking-tighter mb-6">Política de Privacidade</h1>
+          <p className="text-stone-400 font-medium italic text-lg">Nosso compromisso com a proteção dos seus dados pessoais.</p>
         </header>
 
-        <div className="space-y-12">
-          {/* Introdução */}
+        <div className="space-y-12 text-stone-600 leading-relaxed text-lg">
           <section className="prose prose-stone prose-lg max-w-none">
-            <p className="text-stone-600 leading-relaxed text-xl">
-              No <strong>Saúde com Sabor</strong>, a privacidade de nossos visitantes é de extrema importância para nós. Este documento de política de privacidade descreve os tipos de informações pessoais que são recebidas e coletadas e como elas são usadas.
-            </p>
+            <p>A sua privacidade é de extrema importância para o <strong>Saúde com Sabor</strong>. É nossa política respeitar e proteger qualquer informação que possamos coletar em nosso portal.</p>
           </section>
 
-          {/* Coleta de Dados */}
-          <section>
-            <h2 className="text-2xl font-black text-stone-800 mb-4 flex items-center gap-3">
-              <span className="w-2 h-8 bg-green-600 rounded-full"></span>
-              Coleta de Informações
+          <section className="bg-stone-50 p-8 md:p-12 rounded-[2.5rem] border border-stone-100">
+            <h2 className="text-2xl font-black text-stone-800 mb-6 flex items-center gap-4">
+              <span className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-[#3b82f6]">
+                <i className="fa-solid fa-cookie-bite"></i>
+              </span>
+              Google AdSense e Cookies
             </h2>
-            <p className="text-stone-600 leading-relaxed">
-              Coletamos informações de identificação pessoal apenas quando voluntariamente enviadas pelos nossos visitantes, como em formulários de contato ou inscrições em newsletters. Essas informações são usadas apenas para atender ao seu pedido específico, a menos que você nos dê permissão para usá-las de outra maneira.
-            </p>
-          </section>
-
-          <AdBanner />
-
-          {/* Cookies e Web Beacons */}
-          <section>
-            <h2 className="text-2xl font-black text-stone-800 mb-4 flex items-center gap-3">
-              <span className="w-2 h-8 bg-red-600 rounded-full"></span>
-              Cookies e AdSense
-            </h2>
-            <p className="text-stone-600 leading-relaxed mb-4">
-              Utilizamos cookies para armazenar informações sobre as preferências dos visitantes e registrar informações específicas sobre quais páginas o usuário acessa ou visita.
-            </p>
-            <div className="bg-stone-50 p-8 rounded-[2rem] border border-stone-100">
-              <h4 className="font-bold text-stone-800 mb-2">Google AdSense e Cookie DART:</h4>
-              <p className="text-stone-500 text-sm leading-relaxed">
-                O Google, como fornecedor terceirizado, utiliza cookies para exibir anúncios em nosso site. O uso do cookie DART permite ao Google exibir anúncios para os usuários com base em suas visitas a este e outros sites na Internet. Os usuários podem desativar o uso do cookie DART visitando a política de privacidade da rede de anúncios e conteúdo do Google.
-              </p>
+            <p className="mb-6">O Google, como fornecedor de publicidade de terceiros, utiliza cookies para veicular anúncios neste site. O uso do cookie **DART** permite que o Google exiba anúncios baseados nas visitas que você faz a este e a outros sites na Internet.</p>
+            <div className="space-y-4">
+              <p className="font-bold text-stone-800">Diretrizes de Terceiros:</p>
+              <ul className="list-disc pl-6 space-y-4">
+                <li>Fornecedores terceiros, incluindo o Google, utilizam cookies para veicular anúncios com base em visitas anteriores dos usuários.</li>
+                <li>O uso de cookies de publicidade permite ao Google e aos seus parceiros veicular anúncios com base nas visitas feitas a este ou a outros sites.</li>
+                <li>Os usuários podem desativar a publicidade personalizada visitando as <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-[#3b82f6] font-black underline">Configurações de Anúncios do Google</a>.</li>
+              </ul>
             </div>
           </section>
 
-          {/* Segurança */}
-          <section>
-            <h2 className="text-2xl font-black text-stone-800 mb-4 flex items-center gap-3">
-              <span className="w-2 h-8 bg-stone-800 rounded-full"></span>
-              Segurança dos Dados
-            </h2>
-            <p className="text-stone-600 leading-relaxed">
-              Suas informações de identificação pessoal são mantidas seguras. Somente funcionários autorizados (que concordaram em manter as informações seguras e confidenciais) têm acesso a essas informações.
-            </p>
-          </section>
-
           <AdBanner />
 
-          {/* Seus Direitos */}
-          <section className="bg-[#f1f8e9] p-10 rounded-[2.5rem] border border-[#c8e6c9]">
-            <h2 className="text-2xl font-black text-[#2e7d32] mb-4">Seus Direitos (LGPD)</h2>
-            <p className="text-[#2e7d32]/80 leading-relaxed mb-4">
-              Em conformidade com a Lei Geral de Proteção de Dados (LGPD), você tem o direito de:
+          <section>
+            <h2 className="text-2xl font-black text-stone-800 mb-6 flex items-center gap-4">
+              <span className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-emerald-600">
+                <i className="fa-solid fa-shield-halved"></i>
+              </span>
+              Coleta de Dados
+            </h2>
+            <p>Solicitamos informações pessoais apenas quando realmente precisamos delas para lhe fornecer um serviço (como newsletters). Fazemo-lo por meios justos e legais, com o seu conhecimento e consentimento. Também informamos por que estamos coletando e como as informações serão usadas.</p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-black text-stone-800 mb-6 flex items-center gap-4">
+              <span className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-[#ef4444]">
+                <i className="fa-solid fa-handshake"></i>
+              </span>
+              Compartilhamento com Terceiros
+            </h2>
+            <p>Não compartilhamos informações de identificação pessoal publicamente ou com terceiros, exceto quando exigido por lei. Nosso site pode conter links para sites externos que não são operados por nós, portanto, não temos controle sobre seu conteúdo e políticas de privacidade.</p>
+          </section>
+
+          <section className="bg-stone-900 text-white p-10 rounded-[2.5rem] shadow-2xl">
+            <h2 className="text-xl font-black mb-4 uppercase tracking-widest text-[#3b82f6]">Conformidade LGPD</h2>
+            <p className="text-stone-400 text-sm leading-relaxed mb-0">
+              Estamos totalmente comprometidos com a Lei Geral de Proteção de Dados (LGPD). Você tem o direito de solicitar a exclusão de seus dados a qualquer momento através do nosso canal de contato oficial.
             </p>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm font-bold text-stone-700">
-              <li className="flex items-center gap-2"><i className="fa-solid fa-check text-green-600"></i> Acessar seus dados</li>
-              <li className="flex items-center gap-2"><i className="fa-solid fa-check text-green-600"></i> Corrigir dados incompletos</li>
-              <li className="flex items-center gap-2"><i className="fa-solid fa-check text-green-600"></i> Solicitar a exclusão de dados</li>
-              <li className="flex items-center gap-2"><i className="fa-solid fa-check text-green-600"></i> Revogar consentimento</li>
-            </ul>
           </section>
         </div>
 
-        <footer className="mt-20 pt-12 border-t border-stone-100 text-center">
-          <p className="text-stone-400 text-xs font-bold uppercase tracking-widest">
-            Última atualização: Junho de 2024
-          </p>
+        <footer className="mt-20 pt-12 border-t border-stone-100 text-center text-stone-400 text-xs font-bold uppercase tracking-widest">
+          Última atualização: Julho de 2024
         </footer>
       </div>
-
-      <AdBanner />
     </div>
   );
 };
