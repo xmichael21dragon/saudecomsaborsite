@@ -9,18 +9,19 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ onEditorClick, onTermsClick, onViewChange }) => {
-  // URLs reais atualizadas
+  // Links oficiais e sociais atualizados
   const socialLinks = {
     instagram: "https://www.instagram.com/saudecomsaborr1/",
     facebook: "https://www.facebook.com/saudecomsabor",
-    pinterest: "https://br.pinterest.com/saudecomsabor"
+    pinterest: "https://br.pinterest.com/saudecomsabor",
+    github: "https://github.com/xmichael21dragon/SAUDECOMSABOR2"
   };
 
   return (
     <footer className="bg-white border-t border-stone-100 pt-16 pb-8 print:hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-          {/* Brand */}
+          {/* Brand & Social */}
           <div className="col-span-1">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-xl border border-stone-50 overflow-hidden p-2 group">
@@ -49,13 +50,13 @@ const Footer: React.FC<FooterProps> = ({ onEditorClick, onTermsClick, onViewChan
                 <i className="fa-brands fa-instagram text-xl"></i>
               </a>
               <a 
-                href={socialLinks.facebook} 
+                href={socialLinks.github} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                title="Curta nossa página no Facebook"
-                className="w-12 h-12 rounded-2xl bg-stone-50 flex items-center justify-center text-stone-400 hover:bg-[#3b82f6] hover:text-white transition-all shadow-sm hover:shadow-lg hover:-translate-y-1"
+                title="Ver Código Fonte no GitHub"
+                className="w-12 h-12 rounded-2xl bg-stone-50 flex items-center justify-center text-stone-400 hover:bg-stone-900 hover:text-white transition-all shadow-sm hover:shadow-lg hover:-translate-y-1"
               >
-                <i className="fa-brands fa-facebook-f text-xl"></i>
+                <i className="fa-brands fa-github text-xl"></i>
               </a>
               <a 
                 href={socialLinks.pinterest} 
@@ -69,6 +70,7 @@ const Footer: React.FC<FooterProps> = ({ onEditorClick, onTermsClick, onViewChan
             </div>
           </div>
 
+          {/* Sitemap */}
           <div className="flex flex-col md:items-center">
             <div className="w-full md:max-w-xs">
               <h4 className="font-black text-stone-800 mb-6 uppercase tracking-[0.2em] text-[10px]">Mapa do Site</h4>
@@ -81,6 +83,7 @@ const Footer: React.FC<FooterProps> = ({ onEditorClick, onTermsClick, onViewChan
             </div>
           </div>
 
+          {/* Suporte */}
           <div className="flex flex-col md:items-end">
             <div className="w-full md:max-w-xs md:text-right">
               <h4 className="font-black text-stone-800 mb-6 uppercase tracking-[0.2em] text-[10px]">Suporte ao Leitor</h4>
@@ -88,12 +91,13 @@ const Footer: React.FC<FooterProps> = ({ onEditorClick, onTermsClick, onViewChan
                 <li><button onClick={() => onViewChange?.('contato')} className="hover:text-emerald-600 transition-colors flex items-center md:justify-end gap-2">Central de Atendimento <i className="fa-solid fa-headset text-[10px]"></i></button></li>
                 <li><button onClick={() => onViewChange?.('conversor')} className="hover:text-stone-800 transition-colors">Conversor de Medidas</button></li>
                 <li><button onClick={() => onViewChange?.('imc')} className="hover:text-stone-800 transition-colors">Cálculo de IMC</button></li>
-                <li><button onClick={() => onViewChange?.('planner')} className="hover:text-stone-800 transition-colors">Planner Semanal</button></li>
+                <li><button onClick={() => onViewChange?.('privacidade')} className="hover:text-stone-800 transition-colors">Privacidade & LGPD</button></li>
               </ul>
             </div>
           </div>
         </div>
 
+        {/* Legal & Compliance */}
         <div className="pt-8 border-t border-stone-100">
           <div className="bg-stone-50 p-8 rounded-[2.5rem] mb-12 border border-stone-100 flex flex-col md:flex-row items-center gap-8 shadow-inner">
             <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-red-600 text-2xl shadow-sm flex-shrink-0">
