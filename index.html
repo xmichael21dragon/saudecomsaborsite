@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Saúde com Sabor - Gastronomia & Longevidade</title>
-    <meta name="description" content="Descubra receitas saudáveis, calcule seu IMC e organize seu plano alimentar com o Saúde com Sabor." />
+    <title>Saúde com Sabor — Gastronomia & Longevidade</title>
+    <meta name="description" content="Explore técnicas culinárias avançadas, receitas interativas e planejamento nutricional personalizado." />
     
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1966477514201373" crossorigin="anonymous"></script>
 
-    <!-- Favicon Inline -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 85C30 75 15 55 15 40C15 25 30 18 45 25' stroke='%23ef4444' stroke-width='8' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='40' r='7' fill='%23ef4444'/%3E%3Cpath d='M50 85C70 75 85 55 85 40C85 25 70 18 55 25' stroke='%233b82f6' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M55 25C65 35 75 55 55 70C45 55 45 35 55 25Z' fill='%233b82f6'/%3E%3Ccircle cx='50' cy='85' r='4' fill='%231c1c1c'/%3E%3C/svg%3E">
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 20C30 20 15 35 15 55C15 75 50 85 50 85C50 85 85 75 85 55C85 35 70 20 50 20Z' fill='%231A3C34'/%3E%3Cpath d='M50 30L50 75M35 50L65 50' stroke='white' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
     
-    <meta name="theme-color" content="#1c1c1c">
+    <meta name="theme-color" content="#1A3C34">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -21,17 +21,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     
     <style>
-      body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+      :root {
+        --ff-forest: #1A3C34;
+        --ff-sand: #F9F7F2;
+        --ff-terracotta: #D2691E;
+      }
+      body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; background-color: var(--ff-sand); color: #1c1c1c; }
       h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
       
-      @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-      .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+      @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+      .animate-slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+      .ad-label {
+        text-align: center;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: #a8a29e;
+        margin-bottom: 8px;
+        font-weight: 800;
+      }
 
       @media print {
-        body * { visibility: hidden !important; }
-        #shopping-list-print-area, #shopping-list-print-area * { visibility: visible !important; display: block !important; }
-        #shopping-list-print-area { position: absolute; left: 0; top: 0; width: 100%; background: white; color: black; }
         .no-print { display: none !important; }
+        body { background: white; }
       }
     </style>
   <script type="importmap">
@@ -47,8 +60,8 @@
 }
 </script>
 </head>
-  <body class="bg-[#fafaf9] text-stone-900">
+  <body>
     <div id="root"></div>
-    <script type="module" src="./index.tsx"></script>
+    <script type="module" src="/index.tsx"></script>
   </body>
 </html>
